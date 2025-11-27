@@ -1,14 +1,15 @@
 #include <stdio.h>
 
 /*
-    Desafio MateCheck – Nível Novato - Moacyr Fiares Pereira Junior 
+    Desafio MateCheck – Nível Aventureiro - Moacyr Fiares Pereira Junior 
     Movimentação de Peças no Xadrez usando estruturas de repetição
 
     Peças:
     - Torre: move 5 casas para a direita (usar for)
     - Bispo: move 5 casas na diagonal superior direita (usar while)
     - Rainha: move 8 casas para a esquerda (usar do-while)
-
+    - Cavalo: 2 casas para baixo + 1 para esquerda (FOR + WHILE aninhados)
+    
 */
 
 int main() {
@@ -57,6 +58,34 @@ int main() {
         contadorRainha++;
     } while (contadorRainha < RAINHA_PASSOS);
 
+    printf("\n");
+
+    // 5) Movimento do CAVALO
+    
+    printf("*** Movimento do Cavalo ***\n");
+    printf("Cavalo se moverá 2 casas para baixo e 1 para a esquerda.\n\n");
+
+    // Usando FOR (externo) + WHILE (interno)
+    for (int etapa = 0; etapa < 2; etapa++) {
+
+        int passos;
+        if (etapa == 0)
+            passos = 2;  // Movimento vertical (2 para baixo)
+        else
+            passos = 1;  // Movimento horizontal (1 para a esquerda)
+
+        int contador = 0;
+
+        while (contador < passos) {
+
+            if (etapa == 0)
+                printf("Baixo\n");
+            else
+                printf("Esquerda\n");
+
+            contador++;
+        }
+    }
     printf("\n*** Fim do desafio ***\n");
 
     return 0;
