@@ -1,92 +1,119 @@
 #include <stdio.h>
 
 /*
-    Desafio MateCheck – Nível Aventureiro - Moacyr Fiares Pereira Junior 
-    Movimentação de Peças no Xadrez usando estruturas de repetição
+    Desafio MateCheck – Nível Mestre
+    Autor: Moacyr Fiares Pereira Junior
 
     Peças:
-    - Torre: move 5 casas para a direita (usar for)
-    - Bispo: move 5 casas na diagonal superior direita (usar while)
-    - Rainha: move 8 casas para a esquerda (usar do-while)
-    - Cavalo: 2 casas para baixo + 1 para esquerda (FOR + WHILE aninhados)
-    
+    - Torre: recursiva – move 5 casas para Direita
+    - Bispo: recursiva + loops aninhados – 5 casas na diagonal superior direita
+    - Rainha: recursiva – move 8 casas para Esquerda
+    - Cavalo: loops complexos aninhados – 2 casas para cima + 1 para direita
 */
+
+
+//  ***FUNÇÕES RECURSIVAS
+
+// TORRE: movimento recursivo
+void moverTorre(int casas) {
+    if (casas > 0) {
+        printf("Direita\n");
+        moverTorre(casas - 1);
+    }
+}
+
+// BISPO: recursivo, mas usando loops aninhados
+void moverBispo(int casas) {
+    if (casas > 0) {
+
+        // Loop mais externo -- movimento vertical (Cima)
+        for (int v = 0; v < 1; v++) {
+
+            // Loop interno -- movimento horizontal (Direita)
+            for (int h = 0; h < 1; h++) {
+                printf("Cima Direita\n");
+            }
+        }
+
+        moverBispo(casas - 1);  // Chamada recursiva
+    }
+}
+
+// RAINHA: movimento recursivo
+void moverRainha(int casas) {
+    if (casas > 0) {
+        printf("Esquerda\n");
+        moverRainha(casas - 1);
+    }
+}
+
+
+// MOVIMENTO COMPLEXO DO CAVALO
+// 2 casas para CIMA + 1 para DIREITA
+// Usar loops aninhados + múltiplas variáveis + continue/break
+
+void moverCavalo() {
+
+    int movimentosTotais = 3;  // 2 para cima + 1 direita
+    int passos = 0;
+
+    for (int i = 0, j = 2; i < movimentosTotais; i++, j--) {
+
+        // j começa em 2 → representa "quantos passos faltam para o L"
+        // Apenas para mostrar complexidade de variáveis
+
+        if (i < 2) { // As duas primeiras iterações são "Cima"
+            printf("Cima\n");
+
+            if (j == 1)
+                continue;  // apenas exibindo uso obrigatório do continue
+
+        } else { // Último passo
+            printf("Direita\n");
+            break; // demonstrar uso de break
+        }
+
+        passos++;
+    }
+}
+
+
+
+//  ***MAIN
 
 int main() {
 
-    // 1) Variáveis constantes
-    
-    const int TORRE_PASSOS = 5;
-    const int BISPO_PASSOS = 5;
-    const int RAINHA_PASSOS = 8;
+    // 1) Constantes
+    int TORRE_PASSOS = 5;
+    int BISPO_PASSOS = 5;
+    int RAINHA_PASSOS = 8;
 
-    // 2) Movimento da TORRE
-
-    printf("*** Movimento da Torre ***\n");
-    printf("Torre se moverá %d casas para a direita.\n\n", TORRE_PASSOS);
-
-    // TORRE – usando FOR
-    for (int i = 0; i < TORRE_PASSOS; i++) {
-        printf("Direita\n");
-    }
-
+   
+    // TORRE – RECUSIVIDADE
+  
+    printf("*** Movimento da Torre (Recursivo) ***\n");
+    moverTorre(TORRE_PASSOS);
     printf("\n");
 
-    // 3) Movimento do BISPO
+    // BISPO – REC + LOOPS ANINHADOS
 
-    printf("*** Movimento do Bispo ***\n");
-    printf("Bispo se moverá %d casas na diagonal superior direita.\n\n", BISPO_PASSOS);
-
-    // BISPO – usando WHILE
-    int contadorBispo = 0;
-    while (contadorBispo < BISPO_PASSOS) {
-        printf("Cima Direita\n");
-        contadorBispo++;
-    }
-
+    printf("*** Movimento do Bispo (Recursivo + Loops Aninhados) ***\n");
+    moverBispo(BISPO_PASSOS);
     printf("\n");
 
-    // 4) Movimento da RAINHA
+    // RAINHA – RECUSIVIDADE
 
-    printf("*** Movimento da Rainha ***\n");
-    printf("Rainha se moverá %d casas para a esquerda.\n\n", RAINHA_PASSOS);
-
-    // RAINHA – usando DO-WHILE
-    int contadorRainha = 0;
-    do {
-        printf("Esquerda\n");
-        contadorRainha++;
-    } while (contadorRainha < RAINHA_PASSOS);
-
+    printf("*** Movimento da Rainha (Recursivo) ***\n");
+    moverRainha(RAINHA_PASSOS);
     printf("\n");
 
-    // 5) Movimento do CAVALO
-    
-    printf("*** Movimento do Cavalo ***\n");
-    printf("Cavalo se moverá 2 casas para baixo e 1 para a esquerda.\n\n");
+    // CAVALO – LOOPS COMPLEXOS
 
-    // Usando FOR (externo) + WHILE (interno)
-    for (int etapa = 0; etapa < 2; etapa++) {
+    printf("*** Movimento do Cavalo (Loops Complexos) ***\n");
+    moverCavalo();
+    printf("\n");
 
-        int passos;
-        if (etapa == 0)
-            passos = 2;  // Movimento vertical (2 para baixo)
-        else
-            passos = 1;  // Movimento horizontal (1 para a esquerda)
-
-        int contador = 0;
-
-        while (contador < passos) {
-
-            if (etapa == 0)
-                printf("Baixo\n");
-            else
-                printf("Esquerda\n");
-
-            contador++;
-        }
-    }
-    printf("\n*** Fim do desafio ***\n");
+    printf("*** Fim do desafio nível Mestre ***\n");
 
     return 0;
 }
